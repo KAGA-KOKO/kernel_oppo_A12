@@ -942,12 +942,7 @@ void ion_client_destroy(struct ion_client *client)
 						     node);
 
 		mutex_lock(&client->lock);
-		IONMSG("%s:hdl=%p,buf=%p,ref=%d,kmp=%d,clnt=%s,dbg=%s\n",
-		       __func__, handle, handle->buffer,
-		       atomic_read(&handle->buffer->ref.refcount),
-		       handle->buffer->kmap_cnt,
-		       client->name ? client->name : NULL,
-		       client->dbg_name);
+		IONMSG("%s:dbg=%s\n",__func__,client->dbg_name);
 		ion_handle_destroy(&handle->ref);
 		mutex_unlock(&client->lock);
 	}
