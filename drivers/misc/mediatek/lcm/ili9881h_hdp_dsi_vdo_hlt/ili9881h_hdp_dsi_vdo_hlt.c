@@ -642,7 +642,7 @@ extern void lcd_queue_load_tp_fw(void);
 
 static void lcm_init_lcm(void)
 {
-	pr_err("ILITEK:[INFO]: lcm reset %s: \n", __func__);
+	pr_debug("ILITEK:[INFO]: lcm reset %s: \n", __func__);
 
 	#ifdef ODM_WT_EDIT
 	//Zhenzhen.Wu@ODM_WT.MM.Display.LCD, 2019/12/15, modify for LCD resume time
@@ -654,7 +654,7 @@ static void lcm_init_lcm(void)
 	MDELAY(15);
 	#endif
 
-	pr_err("ILITEK:[INFO]: lcd call tp resume %s:\n", __func__);
+	pr_debug("ILITEK:[INFO]: lcd call tp resume %s:\n", __func__);
 	lcd_queue_load_tp_fw();
 
 	push_table(NULL, init_setting, sizeof(init_setting) / sizeof(struct LCM_setting_table), 1);
