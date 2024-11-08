@@ -14,7 +14,9 @@ obj-y	+= oppo_vooc.o
 obj-y	+= oppo_adapter.o
 obj-y	+= oppo_short.o
 
+# ifdef ODM_HQ_EDIT
 #shengjiang@ODM.HQ.BSP.CHG.Basic 2019.11.12 add disable ATM hiz mode
 ifeq (yes,$(strip $(HQ_COMPILE_FACTORY_VERSION)))
    subdir-ccflags-y += -DHQ_COMPILE_FACTORY_VERSION
 endif
+# endif /* ODM_HQ_EDIT */
