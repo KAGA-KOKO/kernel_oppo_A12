@@ -236,7 +236,7 @@ struct mdee_dumper_v3 {
 //Add for monitor modem crash
 #define MODEM_MONITOR_ID          509    //modem crash
 #define BUF_LOG_LENGTH            2148
-extern void mm_keylog_write_modemdump(unsigned int hashId, const char *cause, int id, char *subsys);
+unsigned int BKDRHash(const char* str, unsigned int len);
 #endif /*VENDOR_EDIT*/
 #endif	/* __MDEE_DUMPER_V3_H__ */
 
