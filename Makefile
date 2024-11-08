@@ -468,9 +468,6 @@ OPPO_KMEMLEAK_TEST := true
 OPPO_SLUB_TEST := true
 endif
 
-#Wen.Luo@Bsp.Kernel.Stability, 2018/12/05, Before agingtest enable slub debug except release
-#Wen.Luo@Bsp.Kernel.Stability, 2019/04/09, PVT default disable Slub debug
-#OPPO_SLUB_TEST := true
 
 
 ifeq ($(BUILD_CONFIG),release)
