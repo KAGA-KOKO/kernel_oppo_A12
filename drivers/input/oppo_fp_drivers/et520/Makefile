@@ -14,5 +14,6 @@ subdir-ccflags-y += -I$(srctree)/drivers/spi/trustzone/spi/Tlspi/inc
 	include $(srctree)/drivers/misc/mediatek/gud/Makefile.include
 endif
 
+#ifneq ($(filter oppo6765_19451, $(OPPO_TARGET_DEVICE)),)
 obj-y += ets_navi_input.o et520.o
-
+#endif
