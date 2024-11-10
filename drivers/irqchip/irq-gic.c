@@ -997,6 +997,14 @@ static int gic_irq_domain_translate(struct irq_domain *d,
 		return 0;
 	}
 
+	#ifdef CONFIG_SMP
+	static int __cpuinit gic_secondary_init(struct notifier_block *nfb,
+					unsigned long action, void *hcpu){
+	if (action == CPU_STARTING || action == CPU_STARTING_FROZEN)
+		gic_cpu_init(&gic_data[0]);
+	return NOTIFY_OK;
+}
+
 	if (is_fwnode_irqchip(fwspec->fwnode)) {
 		if(fwspec->param_count != 2)
 			return -EINVAL;
