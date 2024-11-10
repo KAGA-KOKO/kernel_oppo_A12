@@ -1,15 +1,33 @@
-/* SPDX-License-Identifier: GPL-2.0-only */
 /*
- * Copyright (C) 2018-2020 Oplus. All rights reserved.
+ * @file   silead_fp.h
+ * @brief  Contains silead_fp device head file.
+ *
+ *
+ * Copyright 2016-2018 Slead Inc.
+ *
+ * The code contained herein is licensed under the GNU General Public
+ * License. You may obtain a copy of the GNU General Public License
+ * Version 2 or later at the following locations:
+ *
+ * http://www.opensource.org/licenses/gpl-license.html
+ * http://www.gnu.org/copyleft/gpl.html
+ *
+ * ------------------- Revision History ------------------------------
+ * <author>    <date>   <version>     <desc>
+ * Bill Yu    2018/5/2    0.1.0      Init version
+ * Bill Yu    2018/5/28   0.1.1      Disable netlink if netlink id = 0
+ * Bill Yu    2018/6/1    0.1.2      Support wakelock
+ * Bill Yu    2018/6/5    0.1.3      Support chip enter power down
+ * Bill Yu    2018/6/7    0.1.4      Support create proc node
+ * Bill Yu    2018/6/27   0.1.5      Expand pwdn I/F
+ *
  */
 
 #ifndef __SILEAD_FP_H__
 #define __SILEAD_FP_H__
 
 #include <linux/printk.h>
-#include "../include/wakelock.h"
 
-#if 0
 #ifndef _LINUX_WAKELOCK_H
 enum {
     WAKE_LOCK_SUSPEND, /* Prevent suspend */
@@ -46,7 +64,6 @@ static inline void wake_unlock(struct wake_lock *lock)
     __pm_relax(&lock->ws);
 }
 #endif /* _LINUX_WAKELOCK_H */
-#endif
 
 enum _pwdn_mode_t {
 	SIFP_PWDN_NONE = 0,
@@ -62,7 +79,6 @@ enum _netlink_cmd_t {
 	SIFP_NETLINK_SCR_ON,
 	SIFP_NETLINK_CONNECT,
 	SIFP_NETLINK_DISCONNECT,
-	SIFP_NETLINK_UI_READY,
 	SIFP_NETLINK_TP_TOUCHDOWN,
 	SIFP_NETLINK_TP_TOUCHUP,
 	SIFP_NETLINK_MAX,
@@ -154,7 +170,6 @@ struct fp_dev_touch_info {
 #define SIFP_IOC_PWDN         _IOW(SIFP_IOC_MAGIC, 28, u8)
 #define SIFP_IOC_PROC_NODE    _IOW(SIFP_IOC_MAGIC, 29, char[PROC_VND_ID_LEN])
 #define SIFP_IOC_SET_FEATURE  _IOW(SIFP_IOC_MAGIC, 30, u8)
-#define SIFP_IOC_GET_TP_TOUCH_INFO          _IOR(SIFP_IOC_MAGIC, 31, struct fp_dev_touch_info)//add heng
 
 #define FEATURE_FLASH_CS      0x01
 
@@ -164,12 +179,7 @@ struct fp_dev_touch_info {
 #define NL_MSG_LEN            16
 
 //#define PROC_DIR		"fp"      /* if defined, create node under /proc/fp/xxx */
-
-//#ifdef ODM_HQ_EDIT
-//lishuyan@ODM_HQ.BSP.FINGEPRINT 2020/06/04
-//no create /proc/fp_id
 //#define PROC_NODE		"fp_id"   /* proc node name */
-//#endif
 
 #if (SIFP_NETLINK_ROUTE > 0)
     #define BSP_SIL_NETLINK
@@ -185,8 +195,8 @@ struct fp_dev_touch_info {
 //#define BSP_SIL_POWER_SUPPLY_GPIO
 
 /* AVDD voltage range 2.8v ~ 3.3v */
-#define AVDD_MAX  3000000
-#define AVDD_MIN  3000000
+#define AVDD_MAX  2800000
+#define AVDD_MIN  2800000
 
 /* VDDIO voltage range 1.8v ~ AVDD */
 #define VDDIO_MAX 1800000
@@ -203,9 +213,9 @@ struct fp_dev_touch_info {
   #define DEVICE "/dev/spidev1.0"
   //#define BSP_SIL_IRQ_CONFIRM
   #define PKG_SIZE 1
-  #define BSP_SIL_DYNAMIC_SPI
+ // #define BSP_SIL_DYNAMIC_SPI
  #ifndef CONFIG_SILEAD_FP_PLATFORM
-  #define BSP_SIL_CTRL_SPI
+  //#define BSP_SIL_CTRL_SPI
  #endif /* !CONFIG_SILEAD_FP_PLATFORM */
 #elif defined(BSP_SIL_PLAT_QCOM)
   #define QSEE_V4  /* Enable it if QSEE v4 or higher */

@@ -29,8 +29,11 @@ struct fp_plat_t {
     struct pinctrl *pinctrl;
     struct pinctrl_state *pins_default;
     struct pinctrl_state *pins_irq, *pins_rst_h, *pins_rst_l;
+    struct pinctrl_state *pins_irq_rst_h, *pins_irq_rst_l;
     struct pinctrl_state *spi_default;
+#ifdef BSP_SIL_POWER_SUPPLY_PINCTRL
     struct pinctrl_state *pins_avdd_h, *pins_vddio_h;
+#endif /* BSP_SIL_POWER_SUPPLY_PINCTRL */
 #endif
 };
 
