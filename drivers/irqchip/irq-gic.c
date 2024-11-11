@@ -997,12 +997,6 @@ static int gic_irq_domain_translate(struct irq_domain *d,
 		return 0;
 	}
 
-	{
-	if (action == CPU_STARTING || action == CPU_STARTING_FROZEN)
-		gic_cpu_init(&gic_data[0]);
-	return NOTIFY_OK;
-}
-
 	if (is_fwnode_irqchip(fwspec->fwnode)) {
 		if(fwspec->param_count != 2)
 			return -EINVAL;
