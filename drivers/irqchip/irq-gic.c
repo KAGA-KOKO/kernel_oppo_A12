@@ -997,24 +997,11 @@ static int gic_irq_domain_translate(struct irq_domain *d,
 		return 0;
 	}
 
-	#ifdef CONFIG_SMP
-	static int __cpuinit gic_secondary_init(struct notifier_block *nfb,
-					unsigned long action, void *hcpu){
+	{
 	if (action == CPU_STARTING || action == CPU_STARTING_FROZEN)
 		gic_cpu_init(&gic_data[0]);
 	return NOTIFY_OK;
 }
-
-/*
- * Notifier for enabling the GIC CPU interface. Set an arbitrarily high
- * priority because the GIC needs to be up before the ARM generic timers.
- */
-static struct notifier_block __cpuinitdata gic_cpu_notifier = {
-	.notifier_call = gic_secondary_init,
-	.priority = 100,
-};
-#endif
-
 
 	if (is_fwnode_irqchip(fwspec->fwnode)) {
 		if(fwspec->param_count != 2)
