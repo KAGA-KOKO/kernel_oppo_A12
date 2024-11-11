@@ -1005,6 +1005,17 @@ static int gic_irq_domain_translate(struct irq_domain *d,
 	return NOTIFY_OK;
 }
 
+/*
+ * Notifier for enabling the GIC CPU interface. Set an arbitrarily high
+ * priority because the GIC needs to be up before the ARM generic timers.
+ */
+static struct notifier_block __cpuinitdata gic_cpu_notifier = {
+	.notifier_call = gic_secondary_init,
+	.priority = 100,
+};
+#endif
+
+
 	if (is_fwnode_irqchip(fwspec->fwnode)) {
 		if(fwspec->param_count != 2)
 			return -EINVAL;
